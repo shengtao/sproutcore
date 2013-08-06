@@ -80,18 +80,19 @@ SC.View.reopen(
 
     Also, because
   */
-  _sc_view_themeDidChange: function() {
-    if (this._lastTheme === this.get('theme')) { return; }
-    this._lastTheme = this.get('theme');
+  // _sc_view_themeDidChange: function() {
+  //   if (this._lastTheme === this.get('theme')) { return; }
+  //   this._lastTheme = this.get('theme');
 
-    // invalidate child view base themes, if present
-    var childViews = this.childViews, len = childViews.length, idx;
-    for (idx = 0; idx < len; idx++) {
-      childViews[idx].notifyPropertyChange('baseTheme');
-    }
+  //   // invalidate child view base themes, if present
+  //   var childViews = this.childViews, len = childViews.length, idx;
+  //   for (idx = 0; idx < len; idx++) {
+  //     childViews[idx].notifyPropertyChange('baseTheme');
+  //   }
 
-    if (this.get('layer')) { this.replaceLayer(); }
-  }.observes('theme'),
+  //   console.log('_sc_view_themeDidChange');
+  //   if (this.get('layer')) { this.replaceLayer(); }
+  // }.observes('theme'),
 
   /**
     The SC.Theme instance in which the 'theme' property should look for the theme
