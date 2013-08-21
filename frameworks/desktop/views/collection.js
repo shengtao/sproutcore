@@ -893,7 +893,7 @@ SC.CollectionView = SC.View.extend(SC.CollectionViewDelegate, SC.CollectionConte
   _isEnabledDidChange: function () {
     // Reload the nowShowing indexes.
     this.reload();
-  }.observes('isEnabled', 'isEditable', 'canEditContent', 'canReorderContent', 'canDeleteContent'),
+  }.observes('isEnabledInPane', 'isEditable', 'canEditContent', 'canReorderContent', 'canDeleteContent'),
 
   /**
     Regenerates the item views for the content items at the specified indexes.
@@ -2781,7 +2781,7 @@ SC.CollectionView = SC.View.extend(SC.CollectionViewDelegate, SC.CollectionConte
 
   /**
     Implements the SC.DropTarget protocol.  Hides any visible insertion
-    point and clears some cached values. 
+    point and clears some cached values.
   */
   dragExited: function () {
     this.hideInsertionPoint();

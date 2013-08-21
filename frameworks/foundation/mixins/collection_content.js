@@ -74,7 +74,7 @@ SC.CollectionContent = {
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
   contentIndexIsEnabled: function(collection, content, idx) {
-    return collection.get('isEnabled');
+    return collection.get('isEnabledInPane');
   },
 
   // ..........................................................
