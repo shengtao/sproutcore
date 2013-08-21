@@ -158,16 +158,8 @@ SC.View.reopen(
     this.invokeOnce(this._doUpdateEnabled);
   }.observes('isEnabled'),
 
-  /** @private */
-  _doUpdateEnabled: function () {
+  _sc_view_isEnabledInPaneDidChange: function () {
     var state = this.get('viewState');
-
-    // Call the proper action.
-    if (this.get('isEnabled')) {
-      this._doEnable();
-    } else {
-      this._doDisable();
-    }
 
     // Update the display if in a visible state.
     switch (state) {
@@ -180,6 +172,16 @@ SC.View.reopen(
     default:
       // Indicate that a display update is required the next time we are visible.
       this._enabledStyleNeedsUpdate = true;
+    }
+  }.observes('isEnabledInPane'),
+
+  /** @private */
+  _doUpdateEnabled: function () {
+    // Call the proper action.
+    if (this.get('isEnabled')) {
+      this._doEnable();
+    } else {
+      this._doDisable();
     }
   },
 
@@ -195,7 +197,7 @@ SC.View.reopen(
 
   /** @private */
   _doUpdateEnabledStyle: function () {
-    var isEnabled = this.get('isEnabled');
+    var isEnabled = this.get('isEnabledInPane');
 
     this.$().toggleClass('disabled', !isEnabled);
     this.$().attr('aria-disabled', !isEnabled ? true : null);
@@ -221,7 +223,7 @@ SC.View.reopen(
     var isEnabled = this.get('isEnabled');
 
     if (isEnabled && this.get('shouldInheritEnabled')) {
-      this._gotoDisableByParentState();
+      this._gotoDisabledByParentState();
     } else {
       // There's no need to continue to further child views.
       return false;
@@ -231,7 +233,7 @@ SC.View.reopen(
   applyAttributesToContext: function (original, context) {
     original(context);
 
-    if (!this.get('isEnabled')) {
+    if (!this.get('isEnabledInPane')) {
       context.addClass('disabled');
       context.setAttr('aria-disabled', 'true');
     }
@@ -249,7 +251,7 @@ SC.View.reopen(
   },
 
   /** @private */
-  _gotoDisableByParentState: function () {
+  _gotoDisabledByParentState: function () {
     // Update the state.
     this.set('enabledState', SC.CoreView.DISABLED_BY_PARENT);
   }
